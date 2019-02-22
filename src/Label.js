@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Label extends Component {
+	getGravity(type='OG') {
+		if (this.props.beerData.hasOwnProperty(type)) {
+			return this.props.beerData[type]._text;
+		} else if (this.props.beerData.hasOwnProperty('EST_' + type)) {
+			return this.props.beerData['EST_' + type]._text;
+		} else {
+			return undefined;
+		}
+	}
+
 	render() {
 		if (!this.props.beerData) {
 			return null;
 		}
 
 		const toArray = a => (Array.isArray(a) ? a : [a]);
-		const abv = Math.round((Number(this.props.beerData.OG._text)-Number(this.props.beerData.FG._text)) * 131.25 * 10)/10
+		const abv = Math.round((Number(this.getGravity('OG'))-Number(this.getGravity('FG'))) * 131.25 * 10)/10
 		const IBU = (alpha, amount, time, batch_size, gravity) => {
 			// http://www.realbeer.com/hops/research.html
 			const added_alpha = Number(alpha) * Number(amount) * 1000 / Number(batch_size);
@@ -20,7 +30,8 @@ class Label extends Component {
 		}
 
 		const ibu = toArray(this.props.beerData.HOPS.HOP)
-			.map(a => IBU(a.ALPHA._text/100, a.AMOUNT._text*1000, a.TIME._text, this.props.beerData.BATCH_SIZE._text, this.props.beerData.OG._text))
+			.filter(a => !a.USE._text.toLowerCase().match(/dry.*hop/))
+			.map(a => IBU(a.ALPHA._text/100, a.AMOUNT._text*1000, a.TIME._text, this.props.beerData.BATCH_SIZE._text, this.getGravity('OG')))
 			.reduce((a,b) => Math.round((a+b) * 10) / 10);
 
 		//http://brewwiki.com/index.php/Estimating_Color
@@ -29,7 +40,7 @@ class Label extends Component {
 
 		const ebc = Math.round(
 			EBC(toArray(this.props.beerData.FERMENTABLES.FERMENTABLE)
-			.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text, ))
+			.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text))
 			.reduce((a,b) => Math.round(a+b))))
 
 		return (
@@ -51,7 +62,7 @@ class Label extends Component {
 					<h2>Hops</h2>
 					<ul>
 						{toArray(this.props.beerData.HOPS.HOP).map(hop => (
-							<li key={hop.NAME._text}>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, {Math.round(hop.TIME._text)} min</li>
+							<li key={hop.NAME._text + hop.TIME._text}>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, {Math.round(hop.TIME._text)} min</li>
 						))}
 					</ul>
 					<h2>Yeasts</h2>

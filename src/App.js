@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { xml2json } from 'xml-js';
 
 import Label from './Label';
 
@@ -27,8 +28,9 @@ class App extends Component {
 		const files = event.dataTransfer.files;
 		const reader = new FileReader();
 		reader.onload = (event) => {
+			const data = xml2json(event.target.result, {compact: true});
 			this.setState({
-				data: JSON.parse(event.target.result).RECIPES.RECIPE
+				data: JSON.parse(data).RECIPES.RECIPE
 			});
 		}
 		reader.readAsText(files[0]);

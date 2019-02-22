@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 class Label extends Component {
 	render() {
+		if (!this.props.beerData) {
+			return null;
+		}
+
 		const toArray = a => (Array.isArray(a) ? a : [a]);
 		const abv = Math.round((Number(this.props.beerData.OG._text)-Number(this.props.beerData.FG._text)) * 131.25 * 10)/10
 		const IBU = (alpha, amount, time, batch_size, gravity) => {
@@ -41,19 +45,19 @@ class Label extends Component {
 					<h2>Fermentables</h2>
 					<ul>
 						{toArray(this.props.beerData.FERMENTABLES.FERMENTABLE).map(fermentable => (
-							<li>{fermentable.NAME._text}: {Math.round(fermentable.AMOUNT._text*10)/10 + ' kg'}</li>
+							<li key={fermentable.NAME._text}>{fermentable.NAME._text}: {Math.round(fermentable.AMOUNT._text*10)/10 + ' kg'}</li>
 						))}
 					</ul>
 					<h2>Hops</h2>
 					<ul>
 						{toArray(this.props.beerData.HOPS.HOP).map(hop => (
-							<li>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, {Math.round(hop.TIME._text)} min</li>
+							<li key={hop.NAME._text}>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, {Math.round(hop.TIME._text)} min</li>
 						))}
 					</ul>
 					<h2>Yeasts</h2>
 					<ul>
 						{toArray(this.props.beerData.YEASTS.YEAST).map(yeast => (
-							<li>{yeast.NAME._text}: {yeast.AMOUNT._text * 1e3} g</li>
+							<li key={yeast.NAME._text}>{yeast.NAME._text}: {yeast.AMOUNT._text * 1e3} g</li>
 						))}
 					</ul>
 				</div>

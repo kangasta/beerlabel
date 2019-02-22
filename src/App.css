@@ -1,18 +1,9 @@
 :root {
-	font-size: 3em;
-	--color-1: salmon;
-	--color-2: white;
+	font-size: 1em;
 }
 
-.cs-background {
-	background: var(--color-1);
-}
-
-.cs-element {
-	background: var(--color-2);
-	color: var(--color-1);
-}
-
-.cs-title {
-	color: var(--color-2);
+.Droparea {
+	background-color: #DDD;
+	height: 3em;
+	width: 8em;
 }

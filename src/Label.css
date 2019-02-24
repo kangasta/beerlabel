@@ -8,8 +8,9 @@
 }
 
 .Metric {
-	background: #CCC;
+	background: #888;
 	box-sizing: border-box;
+	color: #eee;
 	height: 1.6em;
 	padding: 0.2em;
 	margin: 0.2em;
@@ -36,24 +37,38 @@
 	line-height: 1.25em;
 }
 
-.Details,.LongIngredients {
+.Details,.Recipe {
 	float: right;
 	font-size: 0.25em;
 	margin: 0.8em;
-	max-width: 25em;
+	max-width: 20em;
 	padding: 0.8em;
 	text-align: justify;
 }
 
-.LongIngredients {
+.Details .Ingredients .Title {
+	font-weight: bold;
+}
+
+.Details .Logo {
+	text-align: center;
+}
+
+.Details .Logo .ImagePlaceholder {
+	display: inline-block;
+	height: 4em;
+	width: 10em;
+}
+
+.Recipe {
 	display: none;
 }
 
-.LongIngredients ul {
+.Recipe ul {
 	padding: 0;
 }
 
-.LongIngredients li {
+.Recipe li {
 	list-style: none;
 }
 
@@ -66,10 +81,31 @@
 	width: 7em;
 }
 
+.ImagePlaceholder {
+	border: dashed 0.25em red;
+	border-radius: 0.33em;
+	box-sizing: border-box;
+	margin: 0.5em 0;
+	text-align: center;
+}
+
+.Front .ImagePlaceholder {
+	height: 6em;
+	width: 6em;
+}
+
+.ImagePlaceholder p {
+	color: #444;
+}
+
+.Front .ImagePlaceholder p {
+	font-size: 0.5em;
+}
+
 .Front .Title {
 	bottom: 0;
 	position: absolute;
-	margin: 0.25em;
+	margin: 0.25em 0;
 }
 
 .Front .Name {

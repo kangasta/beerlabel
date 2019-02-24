@@ -69,6 +69,32 @@ class Label extends Component {
 		return ing.join(', ')
 	}
 
+	getRecipe() {
+		return (
+			<div className='Recipe'>
+				<h1>Ingredients</h1>
+				<h2>Fermentables</h2>
+				<ul>
+					{Label.toArray(this.props.beerData.FERMENTABLES.FERMENTABLE).map(fermentable => (
+						<li key={fermentable.NAME._text}>{fermentable.NAME._text}: {Math.round(fermentable.AMOUNT._text*10)/10 + ' kg'}</li>
+					))}
+				</ul>
+				<h2>Hops</h2>
+				<ul>
+					{Label.toArray(this.props.beerData.HOPS.HOP).map(hop => (
+						<li key={hop.NAME._text + hop.TIME._text}>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, { hop.USE._text.toLowerCase().match(/dry.*hop/) ? 'Dry-hop' : Math.round(hop.TIME._text).toString() + ' min'}</li>
+					))}
+				</ul>
+				<h2>Yeasts</h2>
+				<ul>
+					{Label.toArray(this.props.beerData.YEASTS.YEAST).map(yeast => (
+						<li key={yeast.NAME._text}>{yeast.NAME._text}: {yeast.AMOUNT._text * 1e3} g</li>
+					))}
+				</ul>
+			</div>
+		);
+	}
+
 	render() {
 		if (!this.props.beerData) {
 			return null;
@@ -108,30 +134,19 @@ class Label extends Component {
 					{this.getMetricsComponent(null, 50, 'cl')}
 				</div>
 				<div className='Details'>
-					<p className='Ingredients'><span className='Title'>Ingredients:</span>{this.getIngredients()}</p>
+					<p className='Description'>{this.getProperty('DESCRIPTION._text')}</p>
+					<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
+					<div className='Logo'>
+						<div className='ImagePlaceholder'>
+							<p>Logo placeholder</p>
+						</div>
+					</div>
 				</div>
-				<div className='LongIngredients'>
-					<h1>Ingredients</h1>
-					<h2>Fermentables</h2>
-					<ul>
-						{Label.toArray(this.props.beerData.FERMENTABLES.FERMENTABLE).map(fermentable => (
-							<li key={fermentable.NAME._text}>{fermentable.NAME._text}: {Math.round(fermentable.AMOUNT._text*10)/10 + ' kg'}</li>
-						))}
-					</ul>
-					<h2>Hops</h2>
-					<ul>
-						{Label.toArray(this.props.beerData.HOPS.HOP).map(hop => (
-							<li key={hop.NAME._text + hop.TIME._text}>{hop.NAME._text}: {hop.AMOUNT._text * 1e3} g, { hop.USE._text.toLowerCase().match(/dry.*hop/) ? 'Dry-hop' : Math.round(hop.TIME._text).toString() + ' min'}</li>
-						))}
-					</ul>
-					<h2>Yeasts</h2>
-					<ul>
-						{Label.toArray(this.props.beerData.YEASTS.YEAST).map(yeast => (
-							<li key={yeast.NAME._text}>{yeast.NAME._text}: {yeast.AMOUNT._text * 1e3} g</li>
-						))}
-					</ul>
-				</div>
+				{this.getRecipe()}
 				<div className='Front'>
+					<div className='ImagePlaceholder'>
+						<p>Image placeholder</p>
+					</div>
 					<div className='Title'>
 						<div className='Name'>{this.getProperty('NAME._text')}</div>
 						<div className='Style'>{this.getProperty('STYLE.NAME._text')}</div>

@@ -63,6 +63,7 @@ class App extends Component {
 					width: this.state.size.w.toString() + 'mm'
 				}}>
 					<div className='Droparea' onDragOver={this.handleDragover} onDrop={this.handleDrop}>
+						{/* See for images: https://codepen.io/doughensel/pen/zGMmop */}
 						<Label beerData={this.state.data}/>
 					</div>
 				</div>

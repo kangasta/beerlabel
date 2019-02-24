@@ -1,0 +1,81 @@
+.Label {
+	height: 100%;
+	text-align: center;
+}
+
+.Metrics {
+	float: left;
+}
+
+.Metric {
+	background: #CCC;
+	box-sizing: border-box;
+	height: 1.6em;
+	padding: 0.2em;
+	margin: 0.2em;
+	text-align: left;
+	width: 1.6em;
+}
+
+.Metric .Value {
+	font-size: 0.6em;
+	line-height: 1.25em;
+}
+
+.Metric .Value.Big {
+	line-height: 1.8em;
+}
+
+.Metric .Unit {
+	font-size: 0.6em;
+	margin-left: 0.25em;
+}
+
+.Metric .Name {
+	font-size: 0.3em;
+	line-height: 1.25em;
+}
+
+.Details,.LongIngredients {
+	float: right;
+	font-size: 0.25em;
+	margin: 0.8em;
+	max-width: 25em;
+	padding: 0.8em;
+	text-align: justify;
+}
+
+.LongIngredients {
+	display: none;
+}
+
+.LongIngredients ul {
+	padding: 0;
+}
+
+.LongIngredients li {
+	list-style: none;
+}
+
+.Front {
+	display: inline-block;
+	height: 100%;
+	overflow: auto;
+	position: relative;
+	text-align: left;
+	width: 7em;
+}
+
+.Front .Title {
+	bottom: 0;
+	position: absolute;
+	margin: 0.25em;
+}
+
+.Front .Name {
+	font-size: 0.8em;
+}
+
+.Front .Style {
+	font-size: 0.6em;
+}

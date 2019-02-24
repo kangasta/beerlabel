@@ -2,8 +2,18 @@
 	font-size: 1em;
 }
 
-.Droparea {
+.App {
+	text-align: center;
+}
+
+.Main {
 	background-color: #DDD;
-	height: 3em;
-	width: 8em;
+	font-size: 10mm;
+	margin: 6em auto 1em;
+	overflow: hidden;
+}
+
+.Droparea {
+	height: 100%;
+	width: 100%;
 }

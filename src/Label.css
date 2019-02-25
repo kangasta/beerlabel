@@ -54,10 +54,15 @@
 	text-align: center;
 }
 
-.Details .Logo .ImagePlaceholder {
+.Details .Logo .Image {
 	display: inline-block;
 	height: 4em;
 	width: 10em;
+}
+
+.Details .Logo .Image img {
+	max-height: 4em;
+	max-width: 10em;
 }
 
 .Recipe {
@@ -81,7 +86,7 @@
 	width: 7em;
 }
 
-.ImagePlaceholder {
+.Image.Placeholder {
 	border: dashed 0.25em red;
 	border-radius: 0.33em;
 	box-sizing: border-box;
@@ -89,16 +94,33 @@
 	text-align: center;
 }
 
-.Front .ImagePlaceholder {
-	height: 6em;
+.Front .Image {
+	height: 7em;
 	width: 6em;
 }
 
-.ImagePlaceholder p {
-	color: #444;
+.Front .Image.Placeholder {
+	height: 6em;
 }
 
-.Front .ImagePlaceholder p {
+.Front .Image img {
+	max-height: 7em;
+	max-width: 6em;
+}
+
+.Image {
+	overflow: hidden;
+	position: relative;
+}
+
+.Image img {
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.Front .Image p {
 	font-size: 0.5em;
 }
 

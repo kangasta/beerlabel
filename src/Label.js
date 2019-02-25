@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import Droparea from './Droparea';
+
 import './Label.css';
 
 class Label extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			mainImageSrc: '',
+			breweryLogoSrc: ''
+		}
+	}
+
 	static toArray(a) {
 		return (Array.isArray(a) ? a : [a]);
 	}
@@ -137,16 +148,16 @@ class Label extends Component {
 					<p className='Description'>{this.getProperty('DESCRIPTION._text')}</p>
 					<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
 					<div className='Logo'>
-						<div className='ImagePlaceholder'>
-							<p>Logo placeholder</p>
-						</div>
+						<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
+							<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
+						</Droparea>
 					</div>
 				</div>
 				{this.getRecipe()}
 				<div className='Front'>
-					<div className='ImagePlaceholder'>
-						<p>Image placeholder</p>
-					</div>
+					<Droparea className={'Image' + ( this.state.mainImageSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({mainImageSrc: result})}}>
+						<img alt='Logo placeholder' src={this.state.mainImageSrc}/>
+					</Droparea>
 					<div className='Title'>
 						<div className='Name'>{this.getProperty('NAME._text')}</div>
 						<div className='Style'>{this.getProperty('STYLE.NAME._text')}</div>

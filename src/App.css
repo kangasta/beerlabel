@@ -7,8 +7,13 @@
 	text-align: center;
 }
 
+.AppComponent {
+	border-radius: 2.5mm;
+	box-shadow: 2.5mm 2.5mm rgba(24, 24, 24, 0.5)
+}
+
 .Main {
-	background-color: #DDD;
+	background-color: white;
 	font-size: 10mm;
 	margin: 6em auto 1em;
 	overflow: hidden;
@@ -17,4 +22,31 @@
 .Droparea {
 	height: 100%;
 	width: 100%;
+}
+
+.Controls {
+	display: inline-block;
+	background: #ddd;
+	padding: 1em 2em;
+	margin: 1em;
+}
+
+.Field,.Button {
+	margin: 0.5em;
+}
+
+.Field input {
+	margin: 0 0.5em;
+}
+
+.Background {
+	background-color: #666;
+	background-position: center;
+	background-size: cover;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: -100;
 }

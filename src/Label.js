@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { ebc2color } from './ColorUtils';
 import Droparea from './Droparea';
 
 import './Label.css';
@@ -136,21 +137,47 @@ class Label extends Component {
 			.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text))
 			.reduce((a,b) => Math.round(a+b))))
 
+		var full_height;
+		try {
+			full_height = {
+				height: (this.props.size.h).toString() + 'mm'
+			};
+		} catch {
+			full_height = {};
+		}
+
+		var ebc_backgroud;
+		try {
+			ebc_backgroud = {
+				backgroundColor: ebc2color(ebc),
+				color: ebc > 25 ? '#ddd' : '#333'
+			};
+		} catch {
+			ebc_backgroud = {};
+		}
+
 		return (
 			<div className='Label'>
-				<div className='Metrics'>
-					{this.getMetricsComponent('ABV', abv, '%')}
-					{this.getMetricsComponent('IBU', ibu)}
-					{this.getMetricsComponent('EBC', ebc)}
-					{this.getMetricsComponent(null, 50, 'cl')}
+				<div className='Metrics MiddleOf' style={Object.assign({}, full_height, ebc_backgroud)}>
+					<div className='Middle'>
+						{this.getMetricsComponent('ABV', abv, '%')}
+						{this.getMetricsComponent('IBU', ibu)}
+						{this.getMetricsComponent('EBC', ebc)}
+						{this.getMetricsComponent(null, this.props.container.size, this.props.container.unit)}
+					</div>
 				</div>
-				<div className='Details'>
-					<p className='Description'>{this.getProperty('DESCRIPTION._text')}</p>
-					<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
-					<div className='Logo'>
-						<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
-							<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
-						</Droparea>
+				<div className='SideNote' style={full_height}>
+					Label automatically generated
+				</div>
+				<div className='Details MiddleOf' style={full_height}>
+					<div className='Middle'>
+						{(this.getProperty('DESCRIPTION._text') || '').split('\n\n').map(p => (<p className='Description'>{p}</p>))}
+						<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
+						<div className='Logo'>
+							<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
+								<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
+							</Droparea>
+						</div>
 					</div>
 				</div>
 				{this.getRecipe()}
@@ -182,10 +209,22 @@ class Label extends Component {
 }
 
 Label.defaultProps = {
+	container: {
+		size: 33,
+		unit: 'cl'
+	}
 }
 
 Label.propTypes = {
-	beerData: PropTypes.object
+	beerData: PropTypes.object,
+	container: PropTypes.shape({
+		size: PropTypes.number,
+		unit: PropTypes.string
+	}),
+	size: PropTypes.shape({
+		h: PropTypes.number,
+		w: PropTypes.number
+	})
 }
 
 export default Label;

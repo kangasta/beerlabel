@@ -1,6 +1,7 @@
 {
   "name": "beerlabel",
   "version": "0.1.0",
+  "homepage" : "http://kangasta.github.io/beerlabel",
   "private": true,
   "devDependencies": {
     "react-scripts": "^2.1.5"

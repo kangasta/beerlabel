@@ -1,3 +1,7 @@
+body {
+	margin: 0;
+}
+
 :root {
 	font-size: 1em;
 }
@@ -9,13 +13,16 @@
 
 .AppComponent {
 	border-radius: 2.5mm;
+	display: inline-block;
+	/*
 	box-shadow: 2.5mm 2.5mm rgba(24, 24, 24, 0.5)
+	*/
 }
 
 .Main {
 	background-color: white;
 	font-size: 10mm;
-	margin: 6em auto 1em;
+	margin: 15vh auto 1em;
 	overflow: hidden;
 }
 
@@ -25,14 +32,57 @@
 }
 
 .Controls {
+	background: #444;
+	box-sizing: border-box;
+	color: #ccc;
+	float: right;
+	height: 100vh;
+	margin-left: 1em;
+	padding: 3em 2em;
+	text-align: left;
+}
+
+.Controls .AppLogo {
+	text-align: center;
+}
+
+.Controls .AppLogo img {
+	max-height: 8em;
+}
+
+.Controls label {
 	display: inline-block;
-	background: #ddd;
-	padding: 1em 2em;
-	margin: 1em;
+	min-width: 6em;
+}
+
+.Controls input[type=number], .Controls input[type=text] {
+	appearance: textfield;
+	background-color: inherit;
+	border: none;
+	border-bottom: solid thin currentColor;
+	color: inherit;
+	font-size: inherit;
+	margin: 0;
+	margin-right: 0.33em;
+	width: 4em;
+}
+
+.Controls input[type=button] {
+	background-color: inherit;
+	border: solid thin currentColor;
+	border-radius: 0.25em;
+	color: inherit;
+	font-size: 1.25em;
+	padding: 0.25em 2em;
+}
+
+.Controls .Button {
+	padding-top: 1.5em;
+	text-align: center;
 }
 
 .Field,.Button {
-	margin: 0.5em;
+	margin: 0.5em 0;
 }
 
 .Field input {
@@ -49,4 +99,15 @@
 	top: 0;
 	width: 100%;
 	z-index: -100;
+}
+
+.Label.Placeholder {
+	font-size: 0.66em;
+	opacity: 0.5;
+	padding: 1.5em;
+	text-align: center;
+}
+
+.Label.Placeholder::after {
+	content: '';
 }

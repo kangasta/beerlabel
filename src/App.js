@@ -54,7 +54,7 @@ class App extends Component {
 		this.setState(old => {
 			old[property][dimension] = value;
 			return old;
-		})
+		});
 	}
 
 	render() {
@@ -66,14 +66,18 @@ class App extends Component {
 					width: this.state.size.w.toString() + 'mm'
 				}}>
 					<Droparea type='Text' callback={this.handleInputFile}>
-						<Label
+						{!this.state.data ? <div className='Label Placeholder'>Drop beerxml here</div> : <Label
 							beerData={this.state.data}
 							container={this.state.container}
 							size={this.state.size}
-						/>
+						/>}
 					</Droparea>
 				</div>
-				<div className='Controls AppComponent'>
+				<div className='Controls'>
+					<div className='AppLogo'>
+						<img src='/favicon512.png'></img>
+					</div>
+					<h2>Dimension</h2>
 					<div className='Field'>
 						<label htmlFor='control-h'>Height:</label>
 						<input type='number' id='control-h' name='h' min='0' max='600' value={this.state.size.h} onChange={this.handleControlChange}/>
@@ -84,6 +88,7 @@ class App extends Component {
 						<input type='number' id='control-w' name='w' min='0' max='600' value={this.state.size.w} onChange={this.handleControlChange}/>
 						<span className='Unit'>mm</span>
 					</div>
+					<h2>Details</h2>
 					<div className='Field'>
 						<label htmlFor='control-size'>Container:</label>
 						<input type='number' id='control-size' name='size' min='0' max='600' value={this.state.container.size} onChange={this.handleControlChange}/>

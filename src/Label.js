@@ -81,6 +81,35 @@ class Label extends Component {
 		return ing.join(', ')
 	}
 
+	getFullHeightStyle() {
+		var full_height;
+		try {
+			full_height = {
+				height: (this.props.size.h).toString() + 'mm'
+			};
+		} catch(e) {
+			full_height = {};
+		}
+		return full_height;
+	}
+
+	getDetails() {
+		const description = this.getProperty('DESCRIPTION._text') || null;
+		return (
+			<div className='Details MiddleOf' style={this.getFullHeightStyle()}>
+				<div className={'Middle' + (!description ? ' NoDescription' : '')}>
+					{!description ? null : description.split('\n\n').map(p => (<p className='Description'>{p}</p>))}
+					<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
+					<div className='Logo'>
+						<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
+							<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
+						</Droparea>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	getRecipe() {
 		return (
 			<div className='Recipe'>
@@ -137,28 +166,19 @@ class Label extends Component {
 			.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text))
 			.reduce((a,b) => Math.round(a+b))))
 
-		var full_height;
-		try {
-			full_height = {
-				height: (this.props.size.h).toString() + 'mm'
-			};
-		} catch {
-			full_height = {};
-		}
-
 		var ebc_backgroud;
 		try {
 			ebc_backgroud = {
 				backgroundColor: ebc2color(ebc),
 				color: ebc > 25 ? '#ddd' : '#333'
 			};
-		} catch {
+		} catch(e) {
 			ebc_backgroud = {};
 		}
 
 		return (
 			<div className='Label'>
-				<div className='Metrics MiddleOf' style={Object.assign({}, full_height, ebc_backgroud)}>
+				<div className='Metrics MiddleOf' style={Object.assign({}, this.getFullHeightStyle(), ebc_backgroud)}>
 					<div className='Middle'>
 						{this.getMetricsComponent('ABV', abv, '%')}
 						{this.getMetricsComponent('IBU', ibu)}
@@ -166,20 +186,10 @@ class Label extends Component {
 						{this.getMetricsComponent(null, this.props.container.size, this.props.container.unit)}
 					</div>
 				</div>
-				<div className='SideNote' style={full_height}>
+				<div className='SideNote' style={this.getFullHeightStyle()}>
 					Label automatically generated
 				</div>
-				<div className='Details MiddleOf' style={full_height}>
-					<div className='Middle'>
-						{(this.getProperty('DESCRIPTION._text') || '').split('\n\n').map(p => (<p className='Description'>{p}</p>))}
-						<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
-						<div className='Logo'>
-							<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
-								<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
-							</Droparea>
-						</div>
-					</div>
-				</div>
+				{this.getDetails()}
 				{this.getRecipe()}
 				<div className='Front'>
 					<Droparea className={'Image' + ( this.state.mainImageSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({mainImageSrc: result})}}>

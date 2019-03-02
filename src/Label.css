@@ -69,6 +69,14 @@
 	text-align: justify;
 }
 
+.Details .NoDescription {
+	transform: translateY(-50%) rotate(90deg) translateY(-45%);
+}
+
+.Details .NoDescription .Ingredients,.Details .NoDescription .Logo {
+	transform: rotate(180deg);
+}
+
 .Details .Ingredients .Title {
 	font-weight: bold;
 }

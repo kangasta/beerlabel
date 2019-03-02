@@ -48,12 +48,13 @@
 
 .SideNote {
 	background-color: #333;
-	box-sizing: border-box;
+	box-sizing: content-box;
 	color: #ccc;
 	float: right;
 	width: 6mm;
 	font-size: 0.25em;
-	padding: 0.33em;
+	padding: 0.5em;
+	padding-left: 0;
 	margin-right: -1mm;
 	text-align: center;
 	transform: rotate(180deg);

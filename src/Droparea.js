@@ -32,6 +32,8 @@ class Droparea extends Component {
 		case 'Text':
 			reader.readAsText(files[0]);
 			break;
+		default:
+			return;
 		}
 	}
 

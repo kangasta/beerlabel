@@ -75,7 +75,7 @@ class App extends Component {
 				</div>
 				<div className='Controls'>
 					<div className='AppLogo'>
-						<img src='/favicon512.png'></img>
+						<img src='/favicon512.png' alt='Beerlabel'/>
 					</div>
 					<h2>Dimension</h2>
 					<div className='Field'>

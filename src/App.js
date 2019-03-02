@@ -95,7 +95,7 @@ class App extends Component {
 						<input type='text' name='unit' value={this.state.container.unit} onChange={this.handleControlChange}/>
 					</div>
 					<div className='Button'>
-						<input type='button' name='reset' value='Reset' onClick={() => {this.setState({data: null})}}/>
+						<input type='button' name='reset' value='Reset' onClick={() => {this.setState({data: null});}}/>
 					</div>
 				</div>
 				<div className='Background'/>

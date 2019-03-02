@@ -24,7 +24,7 @@ class Droparea extends Component {
 		reader.onload = (event) => {
 			const data = event.target.result;
 			this.props.callback(data);
-		}
+		};
 		switch(this.props.type) {
 		case 'DataURL':
 			reader.readAsDataURL(files[0]);
@@ -52,13 +52,13 @@ Droparea.defaultProps = {
 	callback: () => undefined,
 	className: '',
 	type: 'Text',
-}
+};
 
 Droparea.propTypes = {
 	callback: PropTypes.func,
 	children: PropTypes.node,
 	className: PropTypes.string,
 	type: PropTypes.string,
-}
+};
 
 export default Droparea;

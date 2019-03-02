@@ -13,7 +13,7 @@ class Label extends Component {
 		this.state = {
 			mainImageSrc: '',
 			breweryLogoSrc: ''
-		}
+		};
 	}
 
 	static toArray(a) {
@@ -78,7 +78,7 @@ class Label extends Component {
 				//}
 			});
 		ing.push('Hops', 'Yeast');
-		return ing.join(', ')
+		return ing.join(', ');
 	}
 
 	getFullHeightStyle() {
@@ -98,10 +98,10 @@ class Label extends Component {
 		return (
 			<div className='Details MiddleOf' style={this.getFullHeightStyle()}>
 				<div className={'Middle' + (!description ? ' NoDescription' : '')}>
-					{!description ? null : description.split('\n\n').map(p => (<p className='Description'>{p}</p>))}
+					{!description ? null : description.split('\n\n').map(p => (<p key={p} className='Description'>{p}</p>))}
 					<p className='Ingredients'><span className='Title'>Ingredients:</span> {this.getIngredients()}</p>
 					<div className='Logo'>
-						<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result})}}>
+						<Droparea className={'Image' + ( this.state.breweryLogoSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({breweryLogoSrc: result});}}>
 							<img alt='Logo placeholder' src={this.state.breweryLogoSrc}/>
 						</Droparea>
 					</div>
@@ -141,7 +141,7 @@ class Label extends Component {
 			return null;
 		}
 
-		const abv = Math.round((Number(this.getGravity('OG'))-Number(this.getGravity('FG'))) * 131.25 * 10)/10
+		const abv = Math.round((Number(this.getGravity('OG'))-Number(this.getGravity('FG'))) * 131.25 * 10)/10;
 		const IBU = (alpha, amount, time, batch_size, gravity) => {
 			// http://www.realbeer.com/hops/research.html
 			const added_alpha = Number(alpha) * Number(amount) * 1000 / Number(batch_size);
@@ -150,7 +150,7 @@ class Label extends Component {
 			const boil_time = (1 - Math.exp(-0.04 * Number(time))) / 4.15;
 
 			return bigness * boil_time * added_alpha;
-		}
+		};
 
 		const ibu = Label.toArray(this.props.beerData.HOPS.HOP)
 			.filter(a => !a.USE._text.toLowerCase().match(/dry.*hop/))
@@ -158,13 +158,13 @@ class Label extends Component {
 			.reduce((a,b) => Math.round(a + b));
 
 		//http://brewwiki.com/index.php/Estimating_Color
-		const MCU = (grain_color, weigth, volume) => (grain_color * weigth * 2.2046 / (volume / 3.7854))
-		const EBC = (sum_MCUs) => 1.97/* SRM to EBC */ * 1.4922 * Math.pow(sum_MCUs, 0.6859)
+		const MCU = (grain_color, weigth, volume) => (grain_color * weigth * 2.2046 / (volume / 3.7854));
+		const EBC = (sum_MCUs) => 1.97/* SRM to EBC */ * 1.4922 * Math.pow(sum_MCUs, 0.6859);
 
 		const ebc = Math.round(
 			EBC(Label.toArray(this.props.beerData.FERMENTABLES.FERMENTABLE)
-			.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text))
-			.reduce((a,b) => Math.round(a+b))))
+				.map(a => MCU(a.COLOR._text, a.AMOUNT._text, this.props.beerData.BATCH_SIZE._text))
+				.reduce((a,b) => Math.round(a+b))));
 
 		var ebc_backgroud;
 		try {
@@ -192,7 +192,7 @@ class Label extends Component {
 				{this.getDetails()}
 				{this.getRecipe()}
 				<div className='Front'>
-					<Droparea className={'Image' + ( this.state.mainImageSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({mainImageSrc: result})}}>
+					<Droparea className={'Image' + ( this.state.mainImageSrc ? '' : ' Placeholder')} type='DataURL' callback={(result) => {this.setState({mainImageSrc: result});}}>
 						<img alt='Logo placeholder' src={this.state.mainImageSrc}/>
 					</Droparea>
 					<div className='Title'>
@@ -202,19 +202,6 @@ class Label extends Component {
 				</div>
 			</div>
 		);
-		/*
-		return (
-			<div className='Label'>
-				<h1>{this.props.beerData.NAME._text}</h1>
-				<h2>Metrics</h2>
-				<ul>
-					<li>ABV: {abv}</li>
-					<li>IBU: {ibu}</li>
-					<li>EBC: {ebc}</li>
-				</ul>
-			</div>
-		);
-		*/
 	}
 }
 
@@ -223,7 +210,7 @@ Label.defaultProps = {
 		size: 33,
 		unit: 'cl'
 	}
-}
+};
 
 Label.propTypes = {
 	beerData: PropTypes.object,
@@ -235,6 +222,6 @@ Label.propTypes = {
 		h: PropTypes.number,
 		w: PropTypes.number
 	})
-}
+};
 
 export default Label;

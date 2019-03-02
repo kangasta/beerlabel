@@ -19,6 +19,9 @@ class App extends Component {
 			container: {
 				size: 33,
 				unit: 'cl'
+			},
+			override: {
+				description: ''
 			}
 		};
 
@@ -42,6 +45,9 @@ class App extends Component {
 		case 'h':
 		case 'w':
 			property = 'size';
+			break;
+		case 'description':
+			property = 'override';
 			break;
 		case 'size':
 		case 'unit':
@@ -68,6 +74,7 @@ class App extends Component {
 					<Droparea type='Text' callback={this.handleInputFile}>
 						{!this.state.data ? <div className='Label Placeholder'>Drop beerxml here</div> : <Label
 							beerData={this.state.data}
+							description={this.state.override.description}
 							container={this.state.container}
 							size={this.state.size}
 						/>}
@@ -93,6 +100,10 @@ class App extends Component {
 						<label htmlFor='control-size'>Container:</label>
 						<input type='number' id='control-size' name='size' min='0' max='600' value={this.state.container.size} onChange={this.handleControlChange}/>
 						<input type='text' name='unit' value={this.state.container.unit} onChange={this.handleControlChange}/>
+					</div>
+					<div className='Field'>
+						<label htmlFor='control-description'>Description:</label><br/>
+						<textarea id='control-description' rows='10' name='description' value={this.state.container.description} onChange={this.handleControlChange}/>
 					</div>
 					<div className='Button'>
 						<input type='button' name='reset' value='Reset' onClick={() => {this.setState({data: null});}}/>

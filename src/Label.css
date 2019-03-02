@@ -123,7 +123,6 @@
 	border: dashed 0.25em red;
 	border-radius: 0.33em;
 	box-sizing: border-box;
-	margin: 0.5em 0;
 	text-align: center;
 }
 
@@ -136,10 +135,6 @@
 .Front .Image {
 	height: 7em;
 	width: 6em;
-}
-
-.Front .Image.Placeholder {
-	height: 6em;
 }
 
 .Front .Image img {

@@ -94,7 +94,7 @@ class Label extends Component {
 	}
 
 	getDetails() {
-		const description = this.getProperty('DESCRIPTION._text') || null;
+		const description = this.props.description || this.getProperty('DESCRIPTION._text') || null;
 		return (
 			<div className='Details MiddleOf' style={this.getFullHeightStyle()}>
 				<div className={'Middle' + (!description ? ' NoDescription' : '')}>
@@ -214,6 +214,7 @@ Label.defaultProps = {
 
 Label.propTypes = {
 	beerData: PropTypes.object,
+	description: PropTypes.string,
 	container: PropTypes.shape({
 		size: PropTypes.number,
 		unit: PropTypes.string

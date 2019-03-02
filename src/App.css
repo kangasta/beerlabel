@@ -55,23 +55,32 @@ body {
 	min-width: 6em;
 }
 
+.Controls input, .Controls textarea {
+	background-color: inherit;
+	border: solid thin currentColor;
+	color: inherit;
+}
+
 .Controls input[type=number], .Controls input[type=text] {
 	appearance: textfield;
-	background-color: inherit;
 	border: none;
 	border-bottom: solid thin currentColor;
-	color: inherit;
 	font-size: inherit;
 	margin: 0;
 	margin-right: 0.33em;
 	width: 4em;
 }
 
+.Controls textarea {
+	border-radius: 0.5em;
+	height: 15em;
+	margin: 0.25em 0;
+	padding: 0.125em;
+	width: 100%;
+}
+
 .Controls input[type=button] {
-	background-color: inherit;
-	border: solid thin currentColor;
 	border-radius: 0.25em;
-	color: inherit;
 	font-size: 1.25em;
 	padding: 0.25em 2em;
 }
